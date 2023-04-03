@@ -105,42 +105,44 @@ public class Battle
                 }
                 else
                 {
-                    // Generic creature turn
-                    BattlingBaseEntity targetCreature = _creatures.First(e => e.BaseEntity is Player);
-                    // Potentially add a filter?
-                    List<IAttack> attacks = creature.BaseEntity.Attacks();
-                    IAttack targetAttack = attacks[random.Next(0, attacks.Count-1)];
+                    for (int m = 0; m < creature.BaseEntity.AttacksPerTurn(); m++)
+                    {
+                        // Generic creature turn
+                        BattlingBaseEntity targetCreature = _creatures.First(e => e.BaseEntity is Player);
+                        // Potentially add a filter?
+                        List<IAttack> attacks = creature.BaseEntity.Attacks();
+                        IAttack targetAttack = attacks[random.Next(0, attacks.Count-1)];
                     
-                    bool hits = false;
-                    if (targetAttack.Weapon().AutoHit())
-                    {
-                        Spectre.Console.AnsiConsole.Markup($"[grey93]${creature.BaseEntity.Name()}[/]'(s) attack [yellow3]auto-hits[/]!\n");
-                    }
-                    else
-                    {
-                        int baseRoll = targetCreature.D20();
-                        int modifier = targetAttack.Weapon().HitModifier();
-                        hits = baseRoll + modifier >= targetCreature.BaseEntity.ArmorClass();
-                        Spectre.Console.AnsiConsole.Markup($"[grey93]{creature.BaseEntity.Name()}[/] rolled a [cyan]{baseRoll}[/], with a [red]{modifier}[/] to hit... ");
-                        Thread.Sleep(600);
-                        Spectre.Console.AnsiConsole.Markup((hits
-                            ? "[green]Their attack hits!"
-                            : "[red]Their attack misses!") + "[/]\n");
-                        Thread.Sleep(800);
-                    }
-
-                    if (hits)
-                    {
-                        if (targetCreature.BaseEntity.ApplyAttack(targetAttack, creature.BaseEntity))
+                        bool hits = false;
+                        if (targetAttack.Weapon().AutoHit())
                         {
-                            // If they die
-                            return false;
+                            Spectre.Console.AnsiConsole.Markup($"[grey93]${creature.BaseEntity.Name()}[/]'(s) attack [yellow3]auto-hits[/]!\n");
+                        }
+                        else
+                        {
+                            int baseRoll = targetCreature.D20();
+                            int modifier = targetAttack.Weapon().HitModifier();
+                            hits = baseRoll + modifier >= targetCreature.BaseEntity.ArmorClass();
+                            Spectre.Console.AnsiConsole.Markup($"[grey93]{creature.BaseEntity.Name()}[/] rolled a [cyan]{baseRoll}[/], with a [red]{modifier}[/] to hit... ");
+                            Thread.Sleep(600);
+                            Spectre.Console.AnsiConsole.Markup((hits
+                                ? "[green]Their attack hits!"
+                                : "[red]Their attack misses!") + "[/]\n");
+                            Thread.Sleep(800);
                         }
 
+                        if (hits)
+                        {
+                            if (targetCreature.BaseEntity.ApplyAttack(targetAttack, creature.BaseEntity))
+                            {
+                                // If they die
+                                return false;
+                            }
+
+                        }
                     }
                 }
             }
-
             round++;
         }
 
