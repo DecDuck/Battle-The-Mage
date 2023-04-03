@@ -52,9 +52,11 @@ public class Battle
                 Spectre.Console.AnsiConsole.Write(table);
                 if (creature.BaseEntity is Player player)
                 {
-                    string creatureSelectTarget = Spectre.Console.AnsiConsole.Prompt(
+                    for (int m = 0; m < player.AttacksPerTurn(); m++)
+                    {
+                                            string creatureSelectTarget = Spectre.Console.AnsiConsole.Prompt(
                         new SelectionPrompt<string>()
-                            .Title("Who do you attack?")
+                            .Title($"Attack {m+1}/{player.AttacksPerTurn()} | Who do you attack?")
                             .PageSize(10)
                             .MoreChoicesText("[grey]Move up and down to reveal more options[/]")
                             .AddChoices(_creatures.Where(e => !(e.BaseEntity is Player)).Select((e, i) => $"{e.BaseEntity.Name()} (#{e.InitiativePlacement+1})")));
@@ -62,7 +64,7 @@ public class Battle
                     int creatureIndex = int.Parse(new Regex("\\(([^)]*)\\)[^(]*$").Match(creatureSelectTarget).Value.Substring(2)[..^1]) - 1;
                     string attackSelectTarget = Spectre.Console.AnsiConsole.Prompt(
                         new SelectionPrompt<string>()
-                            .Title("How do you attack?")
+                            .Title($"Attack {m+1}/{player.AttacksPerTurn()} | How do you attack?")
                             .PageSize(10)
                             .MoreChoicesText("[grey]Move up and down to reveal more options[/]")!
                             .AddChoices(player.Attacks().Select((e, i) => e.ToString() + $" (#{i+1})"))
@@ -100,6 +102,8 @@ public class Battle
                                 _creatures[j].InitiativePlacement = j;
                             }
                         }
+
+                    }
 
                     }
                 }
