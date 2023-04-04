@@ -15,12 +15,19 @@ public interface IInventory<T> where T : IItemStack, new()
             {
                 return true;
             }
+
+            if (item is IUnique itemUnique && itemStack.Item() is IUnique itemStackUnique)
+            {
+                string[] sharedTags = itemUnique.UniqueTags().Tags().Intersect(itemStackUnique.UniqueTags().Tags())
+                    .ToArray();
+                if (sharedTags.Length > 0) return false;
+            }
         }
 
         if (ItemStacks().Count < MaxSize())
         {
             T itemStack = new T();
-            itemStack.Add(item);
+            itemStack.Setup(item, 1);
             ItemStacks().Add(itemStack);
             return true;
         }

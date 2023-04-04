@@ -2,14 +2,16 @@ namespace BattleTheMage.Inventory;
 
 public interface IItemStack
 {
-    public List<IItem> Items();
-    public void Add(IItem item);
+    public IItem Item();
+    public int Count();
+    public void Add(int amount);
+    public void Setup(IItem item, int amount);
 
     public bool AttemptAdd(IItem item)
     {
-        if (item.MaxStack() < Items().Count && Items()[0].Name() == item.Name())
+        if (item.MaxStack() < Count() && Item().Name() == item.Name())
         {
-            Add(item);
+            Add(1);
             return true;
         }
         return false;

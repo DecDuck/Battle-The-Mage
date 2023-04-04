@@ -27,7 +27,7 @@ public abstract class BaseEntity : IAttackingEntity, IInventoryEntity<BaseItemSt
 
         foreach (BaseItemStack itemStack in Inventory().ItemStacks())
         {
-            if (itemStack.Items()[0] is IArmorItem armorItem)
+            if (itemStack.Item() is IArmorItem armorItem)
             {
                 armorClass = armorItem.ProcessArmorClass(armorClass + armorItem.ArmorClassModifier());
             }
@@ -53,7 +53,7 @@ public abstract class BaseEntity : IAttackingEntity, IInventoryEntity<BaseItemSt
 
         foreach (BaseItemStack itemStack in Inventory().ItemStacks())
         {
-            if (itemStack.Items()[0] is IWeaponItem weapon)
+            if (itemStack.Item() is IWeaponItem weapon)
             {
                 attacks.Add(weapon.DefaultAttack());
             }

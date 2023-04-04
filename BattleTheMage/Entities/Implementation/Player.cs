@@ -7,6 +7,7 @@ public class Player : BaseEntity
     public Player() : base("Player", 100)
     {
         Inventory().AttemptAddItem(new LeatherArmor());
+        Inventory().AttemptAddItem(new LeatherArmor());
         Inventory().AttemptAddItem(new Shortsword());
     }
 

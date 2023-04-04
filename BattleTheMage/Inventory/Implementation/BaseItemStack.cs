@@ -2,16 +2,25 @@ namespace BattleTheMage.Inventory.Implementation;
 
 public class BaseItemStack : IItemStack
 {
-    private readonly List<IItem> _items = new();
-    public List<IItem> Items() => _items;
+    private IItem _item = null!;
+    public IItem Item() => _item;
+    private int _count;
 
-    public void Add(IItem item)
+    public int Count() => _count;
+
+    public void Add(int amount)
     {
-        _items.Add(item);
+        _count++;
+    }
+
+    public void Setup(IItem item, int amount)
+    {
+        _item = item;
+        _count = amount;
     }
 
     public override string ToString()
     {
-        return $"{_items[0].Name()} x{_items.Count}";
+        return $"{_item.Name()} x{_count}";
     }
 }
