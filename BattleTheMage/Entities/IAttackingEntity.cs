@@ -1,5 +1,6 @@
 using System.Linq.Expressions;
-using BattleTheMage.Damage;
+using BattleTheMage.Combat;
+using BattleTheMage.Combat.Attacks;
 
 namespace BattleTheMage.Entities;
 

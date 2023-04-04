@@ -1,6 +1,7 @@
+using BattleTheMage.Combat.Attacks;
 using BattleTheMage.Entities;
 
-namespace BattleTheMage.Damage.DamageTypes;
+namespace BattleTheMage.Combat.Implementation.DamageTypes;
 
 public class Death : IDamageType
 {
@@ -13,13 +14,13 @@ public class Death : IDamageType
 
     public void OnDamage(IDamageableEntity hitEntity, IAttackingEntity attackingEntity)
     {
-        hitEntity.LingeringEffects().Add(new Deathtouched(attackingEntity));
+        hitEntity.LingeringEffects().Add(new Deathtouched(hitEntity));
     }
 }
 
 public class Deathtouched : ILingeringEffect
 {
-    private IAttackingEntity _attackingEntity;
+    private IDamageableEntity _attackingEntity;
     
     public string Name() => "Deathtouched";
 
@@ -31,12 +32,17 @@ public class Deathtouched : ILingeringEffect
     public void OnTurnTick()
     {
         _turnsRemaining--;
-        _attackingEntity.DoHealthDelta(1);
+        _attackingEntity.DoHealthDelta(-Attack().Weapon().BaseDamage());
     }
     
-    public Deathtouched(IAttackingEntity attackingEntity)
+    public Deathtouched(IDamageableEntity attackingEntity)
     {
         _attackingEntity = attackingEntity;
+    }
+
+    public override string ToString()
+    {
+        return $"{Name()} tr: {TurnsRemaining()} ak: {Attack()}";
     }
 }
 
@@ -47,6 +53,11 @@ public class DeathtouchedAttack : IAttack
     public IWeapon Weapon() => new DeathtouchedWeapon();
 
     public List<IWeaponEffect>? WeaponEffects() => null;
+
+    public override string ToString()
+    {
+        return $"[black]{Weapon().BaseDamage()} dmg[/]";
+    }
 }
 
 public class DeathtouchedWeapon : IWeapon

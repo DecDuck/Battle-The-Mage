@@ -1,4 +1,6 @@
-namespace BattleTheMage.Damage.DefaultAttacks;
+using BattleTheMage.Combat.Attacks;
+
+namespace BattleTheMage.Combat.Implementation.GenericAttacks;
 
 public class Swing : IAttack
 {

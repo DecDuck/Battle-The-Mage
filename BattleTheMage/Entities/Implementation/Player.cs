@@ -1,5 +1,5 @@
-using BattleTheMage.Inventory.Items;
-
+using BattleTheMage.Inventory.Implementation.Items.Armor;
+using BattleTheMage.Inventory.Implementation.Items.Weapons;
 namespace BattleTheMage.Entities.Implementation;
 
 public class Player : BaseEntity

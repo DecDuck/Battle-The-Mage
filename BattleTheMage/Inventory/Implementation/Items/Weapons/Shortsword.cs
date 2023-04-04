@@ -1,8 +1,8 @@
-using BattleTheMage.Damage;
-using BattleTheMage.Damage.DamageTypes;
-using BattleTheMage.Damage.DefaultAttacks;
+using BattleTheMage.Combat.Attacks;
+using BattleTheMage.Combat.Implementation.DamageTypes;
+using BattleTheMage.Combat.Implementation.GenericAttacks;
 
-namespace BattleTheMage.Inventory.Items;
+namespace BattleTheMage.Inventory.Implementation.Items.Weapons;
 
 public class Shortsword : IWeaponItem
 {

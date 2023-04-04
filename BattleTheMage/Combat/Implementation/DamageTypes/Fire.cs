@@ -1,6 +1,7 @@
+using BattleTheMage.Combat.Attacks;
 using BattleTheMage.Entities;
 
-namespace BattleTheMage.Damage.DamageTypes;
+namespace BattleTheMage.Combat.Implementation.DamageTypes;
 
 public class Fire : IDamageType
 {

@@ -1,4 +1,4 @@
-namespace BattleTheMage.Damage;
+namespace BattleTheMage.Combat.Attacks;
 
 public interface IWeapon
 {

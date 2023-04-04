@@ -1,4 +1,5 @@
-using BattleTheMage.Damage;
+using BattleTheMage.Combat;
+using BattleTheMage.Combat.Attacks;
 using BattleTheMage.Inventory;
 using BattleTheMage.Inventory.Implementation;
 
@@ -77,7 +78,8 @@ public abstract class BaseEntity : IAttackingEntity, IInventoryEntity<BaseItemSt
 
     public virtual Dictionary<IDamageType, int> Resistances() => new();
 
-    public virtual List<ILingeringEffect> LingeringEffects() => new();
+    private readonly List<ILingeringEffect> _lingeringEffects = new();
+    public virtual List<ILingeringEffect> LingeringEffects() => _lingeringEffects;
 
     public virtual bool OnDeath(IAttack attack, IAttackingEntity attackingEntity) => true;
 
@@ -108,6 +110,7 @@ public abstract class BaseEntity : IAttackingEntity, IInventoryEntity<BaseItemSt
         damageType.OnDamage(this, attackingEntity);
         if (Health() <= 0)
         {
+            _health = 0;
             // Check if we're allowed to die
             return OnDeath(attack, attackingEntity);
         }

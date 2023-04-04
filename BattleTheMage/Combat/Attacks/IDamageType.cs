@@ -1,6 +1,6 @@
 using BattleTheMage.Entities;
 
-namespace BattleTheMage.Damage;
+namespace BattleTheMage.Combat.Attacks;
 
 public interface IDamageType : IFormattable
 {

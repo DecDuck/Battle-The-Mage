@@ -1,4 +1,4 @@
-namespace BattleTheMage.Inventory.Items;
+namespace BattleTheMage.Inventory.Implementation.Items.Armor;
 
 public class LeatherArmor : IArmorItem
 {

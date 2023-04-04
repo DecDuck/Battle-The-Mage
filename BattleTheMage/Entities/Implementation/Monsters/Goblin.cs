@@ -1,7 +1,6 @@
-using BattleTheMage.Entities.Implementation;
-using BattleTheMage.Inventory.Items;
+using BattleTheMage.Inventory.Implementation.Items.Weapons;
 
-namespace BattleTheMage.Entities.Monsters;
+namespace BattleTheMage.Entities.Implementation.Monsters;
 
 public class Goblin : BaseEntity
 {

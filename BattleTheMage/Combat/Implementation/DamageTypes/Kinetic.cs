@@ -1,4 +1,6 @@
-namespace BattleTheMage.Damage.DamageTypes;
+using BattleTheMage.Combat.Attacks;
+
+namespace BattleTheMage.Combat.Implementation.DamageTypes;
 
 public class Kinetic : IDamageType
 {
